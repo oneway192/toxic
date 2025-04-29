@@ -14,8 +14,8 @@ func main() {
         log.Fatal("DB init error:", err)
     }
 
-    http.HandleFunc("/register", handler.Register)
-    http.HandleFunc("/login", handler.Login)
+    http.HandleFunc("/register", handler.RegisterUser)
+    http.HandleFunc("/login", handler.LoginUser)
     http.HandleFunc("/comment", handler.AddComment)
     http.HandleFunc("/comments", handler.GetAllComments)
     http.HandleFunc("/comments/", handler.GetCommentsByUser)
