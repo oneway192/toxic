@@ -14,6 +14,10 @@ func main() {
         log.Fatal("DB init error:", err)
     }
 
+    if err := db.Migrate(); err != nil {
+        log.Fatal("Migration error:", err)
+    }
+
     http.HandleFunc("/register", handler.RegisterUser)
     http.HandleFunc("/login", handler.LoginUser)
     http.HandleFunc("/comment", handler.AddComment)
