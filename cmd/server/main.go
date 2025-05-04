@@ -18,11 +18,15 @@ func main() {
         log.Fatal("Migration error:", err)
     }
 
+    // Регистрация маршрутов
     http.HandleFunc("/register", handler.RegisterUser)
     http.HandleFunc("/login", handler.LoginUser)
     http.HandleFunc("/comment", handler.AddComment)
     http.HandleFunc("/comments", handler.GetAllComments)
     http.HandleFunc("/comments/", handler.GetCommentsByUser)
+
+    // Добавляем маршрут для получения всех пользователей
+    http.HandleFunc("/users", handler.GetAllUsers)  // Маршрут для получения всех пользователей
 
     log.Println("Server started at :8080")
     log.Fatal(http.ListenAndServe(":8080", nil))
