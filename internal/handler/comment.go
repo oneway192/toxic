@@ -7,6 +7,7 @@ import (
     "net/http"
     "strconv"
     "strings"
+    "log"
 )
 
 type CommentRequest struct {
@@ -30,11 +31,12 @@ func AddComment(w http.ResponseWriter, r *http.Request) {
     }
 
     _, err = db.DB.Exec("INSERT INTO comments (text_comment, user_id, corrected_ai) VALUES ($1, $2, $3)",
-        req.Text, req.UserID, corrected)
-    if err != nil {
-        http.Error(w, "DB error", http.StatusInternalServerError)
-        return
-    }
+     req.Text, req.UserID, corrected)
+ if err != nil {
+     log.Printf("Error executing query: %v", err) // Добавь это для подробного логирования
+     http.Error(w, "DB error", http.StatusInternalServerError)
+     return
+ }
 
     w.WriteHeader(http.StatusCreated)
 }
