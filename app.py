@@ -5,20 +5,16 @@ import torch
 
 app = FastAPI()
 
-# Загружаем модель и токенизатор
 tokenizer = AutoTokenizer.from_pretrained("ai-forever/ruT5-base")
 model = T5ForConditionalGeneration.from_pretrained("s-nlp/ruT5-base-detox")
 
-# Структура входных данных
 class TextIn(BaseModel):
     text: str
 
-# Маршрут для проверки
 @app.get("/")
 def read_root():
     return {"message": "API работает!"}
 
-# Основной маршрут для детокса
 @app.post("/detox")
 def detox_text(data: TextIn):
     input_ids = tokenizer.encode(data.text, return_tensors="pt")
